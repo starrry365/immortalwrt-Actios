@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""SSH tool for Alpine Linux device management at 192.168.42.1"""
+"""SSH tool for Alpine Linux device management at 192.168.10.1"""
 import paramiko
 import sys
 import time
 
-HOST = "192.168.1.1"
+HOST = "192.168.10.1"
 USER = "root"
 PASS = "root"
 PORT = 22

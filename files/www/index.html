@@ -915,7 +915,7 @@
 
     <script>
         // ── 设备按钮 URL（不走远程更新）──
-        const host = location.hostname || '192.168.1.1';
+        const host = location.hostname || '192.168.10.1';
         document.getElementById('picoclaw-btn').href = 'http://' + host + ':18800';
         document.getElementById('picoclaw-addr').textContent = host + ':18800';
         document.getElementById('SimAdmin-btn').href = 'http://' + host + ':3000';

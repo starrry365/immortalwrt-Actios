@@ -201,7 +201,7 @@ jobs:
         # 应用自定义 IP
         if [ -n "$CUSTOM_IP" ]; then
           echo "🌐 设置管理 IP: $CUSTOM_IP"
-          sed -i "s/192\.168\.1\.1/$CUSTOM_IP/g" package/base-files/files/bin/config_generate
+          sed -i "s/192\.168\.10\.1/$CUSTOM_IP/g" package/base-files/files/bin/config_generate
         fi
 
         # 应用自定义主机名
@@ -360,7 +360,7 @@ jobs:
         RAW='${{ inputs.extra_packages }}'
         CUSTOM_IP=$(echo "$RAW" | grep -oP '(?<=__ip__)[^,\s]+' || true)
         CUSTOM_HOSTNAME=$(echo "$RAW" | grep -oP '(?<=__hostname__)[^,\s]+' || true)
-        DISPLAY_IP=${CUSTOM_IP:-192.168.1.1}
+        DISPLAY_IP=${CUSTOM_IP:-192.168.10.1}
         DISPLAY_HOSTNAME=${CUSTOM_HOSTNAME:-ImmortalWrt}
         # 过滤掉特殊前缀，只显示真正的包名
         EXTRA=$(echo "$RAW" | sed 's/,/ /g' | tr ' ' '\n' | grep -v '^__ip__' | grep -v '^__hostname__' | sed '/^$/d')
