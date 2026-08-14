@@ -241,7 +241,6 @@ jobs:
     - name: 📂 检查 openwrt 目录与配置
       run: |
         ls -la openwrt/
-        ls -l .config
         ls -la openwrt/.config
 
     - name: 📤 上传生成的 .config 编译配置
