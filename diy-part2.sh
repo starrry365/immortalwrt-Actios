@@ -24,14 +24,15 @@ else
   echo "⚠️ 未找到 $LUCI_DEFAULT_CONFIG（feeds 版本可能不同），跳过默认语言设置"
 fi
 
-# 升级 luci-theme-argon 到 jerrykuku 官方最新版（v2.4.6+，支持暗色模式/动态壁纸/多语言）
-# 删除官方 feed 的旧版主题，替换为 GitHub 最新版，避免包名冲突
+# 升级 luci-theme-argon 到 jerrykuku 官方正式版 v2.4.6（支持暗色模式/动态壁纸/多语言）
+# 锁定 tag 避免拉到 master 上尚未发布为正式版本的旧 PKG_VERSION（如 2.4.3）
+# 删除官方 feed 的旧版主题，替换为 GitHub 正式版，避免包名冲突
 rm -rf feeds/luci/themes/luci-theme-argon
-git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
+git clone --depth 1 -b v2.4.6 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 
 # 添加 argon 主题配置面板（网页端自定义主题颜色/暗色模式/壁纸等）
-# 官方 luci feed 不含此应用，clone 到 package/ 不会冲突
-git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+# 官方 luci feed 不含此应用，clone 到 package/ 不会冲突；锁定正式版 v0.9
+git clone --depth 1 -b v0.9 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 
 # 启用 IPv4 策略路由（直接写入内核 platform config，绕过 make defconfig 的依赖检查）
 # CONFIG_KERNEL_IP_ADVANCED_ROUTER 在 OpenWrt Config.in 中无对应 wrapper，必须用此方式
