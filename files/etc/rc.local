@@ -5,4 +5,19 @@
 # cd /root/picoclaw && ./picoclaw-launcher -public > /root/picoclaw/picoclaw.log 2>&1 &
 # SimAdmin 这个是管理sim手机卡的程序，开源地址：https://github.com/3899/SimAdmin
 # cd /root/simadmin && ./simadmin > /root/simadmin/simadmin.log 2>&1 &
+
+# 启用 BBR 拥塞控制（需配合 kmod-tcp-bbr 包，弱网下提升吞吐）
+# 仅当模块可用时设置，避免模块缺失导致启动报错
+if [ -f /sys/module/tcp_bbr/parameters/initial_cwnd ]; then
+	# 已加载，直接启用
+	sysctl -w net.ipv4.tcp_congestion_control=bbr >/dev/null 2>&1
+	# 中等队列大小/高延迟场景（BBR 自适应，无需额外队列设置）
+	sysctl -w net.core.default_qdisc=fq >/dev/null 2>&1
+else
+	# 尝试加载模块后再启用
+	modprobe tcp_bbr 2>/dev/null
+	sysctl -w net.ipv4.tcp_congestion_control=bbr >/dev/null 2>&1
+	sysctl -w net.core.default_qdisc=fq >/dev/null 2>&1
+fi
+
 exit 0
