@@ -64,6 +64,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 360
     permissions:
       contents: write
       actions: write
@@ -237,9 +238,10 @@ jobs:
         done
         
         
-    - name: SSH 调试有效时间6h! 连接后输入q 输入exit即可退出，自动继续后续编译流程
-      uses: mxschmitt/action-tmate@master
+    - name: 🛠️ SSH 调试（无人连接30分钟自动继续编译；连接后输入 q 再输入 exit 退出）
+      uses: mxschmitt/action-tmate@v3
       if: ${{ inputs.ssh || contains(github.event.action, 'ssh') }}
+      timeout-minutes: 30
       
       
     - name: Config defconfig
