@@ -45,21 +45,9 @@ Tired of finding a decent firmware? Software repos won't install, the version is
 
 ## Supported Device Models
 
-| Model   | Notes                                                      |
-|---------|------------------------------------------------------------|
-| ufi003  | Default — I have this board; best optimized                |
-| ufi001c | Supported                                                  |
-| ufi001b | Supported                                                  |
-| ufi103s | Supported                                                  |
-| qrzl903 | Supported                                                  |
-| w001    | Supported                                                  |
-| uz801   | Supported                                                  |
-| mf32    | Supported — [Another repo: Android battery device cracking](https://github.com/x7780/MF32T_MB_V01) |
-| mf601   | Supported                                                  |
-| wf2     | Supported                                                  |
-| jz02v10 | Supported                                                  |
-| sp970v11| Supported                                                  |
-| sp970v10| Supported                                                  |
+| Model      | Notes                                                             |
+|------------|-------------------------------------------------------------------|
+| mf32 (MF32T)| The only supported model — deeply optimized (low-latency kernel / BBR / UPnP / network tuning). [MF32T cracking repo](https://github.com/x7780/MF32T_MB_V01) |
 
 ---
 
@@ -67,7 +55,7 @@ Tired of finding a decent firmware? Software repos won't install, the version is
 
 | Path                   | Description                                                                                   |
 |------------------------|-----------------------------------------------------------------------------------------------|
-| `config/`              | Build config files for each device model (e.g. `ufi003.config`)                               |
+| `config/`              | Build config file — currently only `mf32.config` (MF32T).                                     |
 | `files/`               | Files overlaid into the firmware image — system configs. [See this repo for custom homepage guide](https://github.com/x7780/suishen-wifi) |
 | `img/`                 | Tutorial screenshots used in the README                                                       |
 | `scripts/`             | Helper scripts executed during the build                                                      |

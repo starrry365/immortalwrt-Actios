@@ -12,9 +12,9 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   TZ: Asia/Shanghai
-  # 用 ufi103s 作为验证机型（体积适中，包含 glib2/libmbim 依赖，最能暴露问题）
-  VERIFY_PROFILE: ufi103s
-  CONFIG_FILE: config/ufi103s.config
+  # 用 mf32 作为验证机型（MF32T 是当前唯一支持的型号）
+  VERIFY_PROFILE: mf32
+  CONFIG_FILE: config/mf32.config
 
 jobs:
   verify-and-lock:

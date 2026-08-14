@@ -13,23 +13,11 @@ on:
         default: false
         type: boolean
       profile:
-        description: ' ↓ 支持多款型号 手动选择要编译的机型 ↓ '
+        description: ' ↓ 编译机型（当前仅支持 MF32T）↓ '
         type: choice
         options:
-          - ufi003
-          - ufi001c
-          - ufi001b
-          - ufi103s
-          - jz02v10
-          - qrzl903
-          - w001
-          - uz801
           - mf32
-          - mf601
-          - wf2
-          - sp970v11
-          - sp970v10
-        default: ufi003
+        default: mf32
         required: true
       upstream:
         description: ' ↓ 选择上游源码仓库 ↓ '

@@ -33,30 +33,18 @@
 
 ---
 
-### 推荐插件配置（可直接复制粘贴）
+### 推荐的插件配置（可直接复制粘贴）
+本仓库为 MF32T 专用编译，插件在固件中已默认集成，无需额外填写。
 
-- 基础：`luci-app-ttyd`
-- 科学上网：`luci-app-openclash`
-- 去广告：`luci-app-adbyby-plus,luci-app-adblock`
-- 常用组合：`luci-app-ttyd,luci-app-adbyby-plus,luci-app-accesscontrol`
+> 如需添加额外插件，请在 **extra_packages** 输入框填写包名（逗号或空格分隔）。
+
 ---
-## 支持的设备型号
+
+## 支持设备型号
 
 | 型号 | 说明 |
 |-----|------|
-| ufi003 | 默认，手里有这个板子，优化比较好 |
-| ufi001c | 已支持 |
-| ufi001b | 已支持 |
-| ufi103s | 已支持 |
-| qrzl903 | 已支持 |
-| w001 | 已支持 |
-| uz801 | 已支持 |
-| mf32 | 已支持  [另外一个库 - 安卓电池机破解](https://github.com/x7780/MF32T_MB_V01) |
-| mf601 | 已支持 |
-| wf2 | 已支持 |
-| jz02v10 | 已支持 |
-| sp970v11 | 已支持 |
-| sp970v10 | 已支持 |
+| mf32 (MF32T) | 唯一支持型号，深度优化（低延迟内核 / BBR / UPnP / 网络调优） [MF32T 电池机破解库](https://github.com/x7780/MF32T_MB_V01) |
 
 ---
 
@@ -64,7 +52,7 @@
 
 | 路径 | 用途说明 |
 |------|---------|
-| `config/` | 各设备型号的编译配置文件，文件名对应设备型号（如 `ufi003.config`） |
+| `config/` | 编译配置文件（当前仅 `mf32.config`，对应 MF32T 机型） |
 | `files/` | 编译后覆盖到固件，全是系统配置文件，[files/www 更改首页指南请看这个仓库](https://github.com/x7780/suishen-wifi) |
 | `img/` | README 文档中使用的教程截图 |
 | `scripts/` | 编译过程中执行的辅助脚本 |

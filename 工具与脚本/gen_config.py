@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 用法: python gen_config.py <源设备> <目标设备>
-示例: python gen_config.py ufi003 mf32
+示例: python gen_config.py mf32 mf32
 
-支持的设备名: ufi001c, ufi001b, ufi103s, qrzl903, w001, ufi003, uz801, mf32, mf601, wf2, jz02v10, sp970v11, sp970v10
+支持的设备名: mf32 (MF32T，当前唯一支持的型号；新增机型时在 DEVICES 列表追加即可)
 """
 
 import sys
@@ -11,8 +11,7 @@ import shutil
 from pathlib import Path
 
 DEVICES = [
-    "ufi001c", "ufi001b", "ufi103s", "qrzl903", "w001",
-    "ufi003", "uz801", "mf32", "mf601", "wf2", "jz02v10", "sp970v11", "sp970v10"
+    "mf32"
 ]
 
 def gen_config(src: str, dst: str):
