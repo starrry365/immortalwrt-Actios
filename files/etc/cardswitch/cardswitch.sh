@@ -41,7 +41,8 @@ case "$1" in
 esac
 
 # 重启 modem 使 SIM 切换生效
-rmmod qcom-q6v5-mss 2>/dev/null
-modprobe qcom-q6v5-mss
-service rmtfs restart
-service modemmanager restart
+# 若模块被占用无法卸载则跳过（modprobe 会因已加载自动忽略），不中断脚本
+rmmod qcom-q6v5-mss 2>/dev/null || true
+modprobe qcom-q6v5-mss 2>/dev/null || true
+service rmtfs restart 2>/dev/null || true
+service modemmanager restart 2>/dev/null || true

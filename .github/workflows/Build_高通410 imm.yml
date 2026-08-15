@@ -187,9 +187,6 @@ jobs:
           dl-${{ steps.lock.outputs.locked_hash }}-
           dl-
 
-    - name: 📁 复制自定义文件（files 目录）
-      run: cp -r files openwrt/files
-
     - name: 📡 加载自定义 feeds（diy-part1）
       run: |
         [ -e "$FEEDS_CONF" ] && mv "$FEEDS_CONF" openwrt/feeds.conf.default
@@ -210,6 +207,7 @@ jobs:
 
     - name: 📝 加载自定义配置（diy-part2）
       run: |
+        # files 覆盖目录在此一次性就位（勿重复 cp/mv，否则会嵌套成 openwrt/files/files 混入固件）
         [ -e files ] && mv files openwrt/files
         [ -e "$CONFIG_FILE" ] && mv "$CONFIG_FILE" openwrt/.config
         chmod +x $DIY_P2_SH
