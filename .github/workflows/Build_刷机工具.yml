@@ -32,13 +32,25 @@ jobs:
           sudo apt-get install -y libusb-1.0-0-dev pkg-config
           # Windows 交叉编译工具链
           sudo apt-get install -y gcc-mingw-w64-x86-64 gcc-mingw-w64-i686
-          # rsrc 生成 Windows UAC manifest syso
-          go install github.com/akavel/rsrc@latest
+          # Linux arm64 交叉编译工具链（提前安装，避免编译步骤中再装）
+          sudo apt-get install -y gcc-aarch64-linux-gnu || true
+          # rsrc 生成 Windows UAC manifest syso（锁定版本 v2.6.1）
+          go install github.com/akavel/rsrc@v2.6.1
+
+      - name: 缓存 Go 模块
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: flashtool-go-${{ hashFiles('flashtool/go.mod', 'flashtool/go.sum') }}
+          restore-keys: |
+            flashtool-go-
 
       - name: 下载 libusb Windows 静态库（mingw 格式）
         run: |
           # 下载官方 release 包，里面有 MinGW 格式的 .a 静态库
-          wget -q https://github.com/libusb/libusb/releases/download/v1.0.27/libusb-1.0.27.7z -O libusb.7z
+          wget -q https://github.com/libusb/libusb/releases/download/v1.0.27/libusb-1.0.27.7z -O libusb.7z || { echo "❌ libusb 下载失败"; exit 1; }
           7z x libusb.7z -olibusb_win
           # 打印实际结构，方便排查
           echo "=== .a 文件 ==="
@@ -50,9 +62,9 @@ jobs:
         run: |
           mkdir -p flashtool/winenv/usbdk
           wget -q "https://github.com/daynix/UsbDk/releases/download/v1.00-22/UsbDk_1.0.22_x64.msi" \
-            -O flashtool/winenv/usbdk/usbdk_x64.msi
+            -O flashtool/winenv/usbdk/usbdk_x64.msi || { echo "❌ usbdk x64 下载失败"; exit 1; }
           wget -q "https://github.com/daynix/UsbDk/releases/download/v1.00-22/UsbDk_1.0.22_x86.msi" \
-            -O flashtool/winenv/usbdk/usbdk_x86.msi
+            -O flashtool/winenv/usbdk/usbdk_x86.msi || { echo "❌ usbdk x86 下载失败"; exit 1; }
           ls -lh flashtool/winenv/usbdk/
 
       - name: 下载 Go 依赖
@@ -134,7 +146,6 @@ jobs:
           CGO_ENABLED: 1
           CC: aarch64-linux-gnu-gcc
         run: |
-          sudo apt-get install -y gcc-aarch64-linux-gnu libusb-1.0-0-dev
           # 尝试安装 arm64 版 libusb，失败则跳过
           sudo dpkg --add-architecture arm64 || true
           sudo apt-get update -q || true
@@ -200,7 +211,7 @@ jobs:
           ls -lh dist/*.zip dist/*.tar.gz
 
       - name: 发布到 Release
-        uses: ncipollo/release-action@main
+        uses: ncipollo/release-action@v1.14.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

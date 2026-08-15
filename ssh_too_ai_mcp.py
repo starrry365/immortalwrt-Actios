@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """SSH tool for Alpine Linux device management at 192.168.10.1"""
+import os
 import paramiko
 import sys
 import time
 
-HOST = "192.168.10.1"
-USER = "root"
-PASS = "root"
-PORT = 22
+HOST = os.environ.get("SSH_HOST", "192.168.10.1")
+USER = os.environ.get("SSH_USER", "root")
+# 优先从环境变量读取密码，避免密码硬编码在脚本里（默认 root 兼容旧用法）
+PASS = os.environ.get("SSH_PASS", "root")
+PORT = int(os.environ.get("SSH_PORT", "22"))
 
 def get_client():
     client = paramiko.SSHClient()
@@ -21,7 +23,12 @@ def run(client, cmd, timeout=30):
     err = stderr.read().decode(errors="replace")
     return out, err
 
-def push_pubkey(client, pubkey_path="C:/Users/Administrator/.ssh/id_ed25519.pub"):
+def push_pubkey(client, pubkey_path=None):
+    if pubkey_path is None:
+        pubkey_path = os.environ.get(
+            "SSH_PUBKEY",
+            os.path.expanduser("~/.ssh/id_ed25519.pub"),
+        )
     with open(pubkey_path) as f:
         pubkey = f.read().strip()
     cmds = [

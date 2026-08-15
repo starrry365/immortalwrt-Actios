@@ -66,17 +66,18 @@ Tired of finding a decent firmware? Software repos won't install, the version is
 | `upstream_history.txt` | Historical upstream hash log — use a past hash if the latest won't compile                    |
 | `upstream_lock.txt`    | Periodically updated lock of a known-good upstream hash to avoid upstream breakage             |
 | `极简的包名.txt`       | Quick-reference list of common plugin package names (backup, not essential)                   |
-| `.config`              | Default build config, defines global build options                                            |
 
 ---
 
-### Built-in Default Plugins (3 total) — Do NOT re-add these in your build
+### Built-in Default Plugins (5 total) — Do NOT re-add these in your build
 
 | # | Plugin                   | Description        | Menu Location      |
 |---|--------------------------|--------------------|--------------------|
-| 1 | luci-theme-argon         | Argon theme        | Popular theme      |
-| 2 | luci-app-package-manager | Package management | System → Software  |
-| 3 | luci-app-firewallr       | Firewall           | System → Firewall  |
+| 1 | luci-theme-argon         | Argon theme (v2.4.6) | System → Theme    |
+| 2 | luci-app-argon-config    | Theme config panel (dark mode / wallpaper / custom colors) | System → Theme Style |
+| 3 | luci-app-firewall        | Firewall (firewall4/nftables frontend) | Network → Firewall |
+| 4 | luci-app-package-manager | Package management | System → Software  |
+| 5 | luci-app-upnp            | UPnP auto port forwarding | Network → UPnP    |
 
 ### Built-in Kernel Driver Modules — Do NOT add duplicates
 
@@ -106,6 +107,7 @@ Tired of finding a decent firmware? Software repos won't install, the version is
 | # | URL                                        | Description                           | Usage                                |
 |---|--------------------------------------------|---------------------------------------|--------------------------------------|
 | 1 | https://github.com/kenzok8/small-package   | Common OpenWrt package source bundle  | Enter the package name when building |
+| 2 | https://github.com/linkease/istore         | iStore app store (package name: luci-app-store) | Enter the package name when building |
 
 ---
 

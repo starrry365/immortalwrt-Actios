@@ -79,29 +79,30 @@
 
 | 序号 | 插件 | 说明 | 菜单位置 |
 |-----|-----|------|---------|
-| 4 | kmod-usb-common | USB 公共模块 | 内核模块 |
-| 5 | kmod-usb-core | USB 核心模块 | 内核模块 |
-| 6 | kmod-usb-gadget | USB Gadget 框架 | 内核模块 |
-| 7 | kmod-usb-gadget-eth | USB Gadget 以太网 | 内核模块 |
-| 8 | kmod-usb-gadget-functionfs | USB Gadget FunctionFS | 内核模块 |
-| 9 | kmod-usb-gadget-mass-storage | USB Gadget 大容量存储 | 内核模块 |
-| 10 | kmod-usb-gadget-ncm | USB Gadget NCM 网络 | 内核模块 |
-| 11 | kmod-usb-gadget-serial | USB Gadget 串口 | 内核模块 |
-| 12 | kmod-usb-lib-composite | USB 复合设备库 | 内核模块 |
-| 13 | kmod-usb-net | USB 网络驱动 | 内核模块 |
-| 14 | kmod-usb-net-cdc-ether | USB CDC Ethernet 驱动 | 内核模块 |
-| 15 | kmod-usb-net-cdc-ncm | USB CDC NCM 驱动 | 内核模块 |
-| 16 | kmod-usb-net-huawei-cdc-ncm | 华为 CDC NCM 驱动 | 内核模块 |
-| 17 | kmod-usb-net-rndis | USB RNDIS 网络驱动 | 内核模块 |
-| 18 | kmod-usb-serial | USB 串口驱动 | 内核模块 |
-| 19 | kmod-usb-serial-option | USB 串口 Option 驱动 | 内核模块 |
-| 20 | kmod-usb-serial-wwan | USB 串口 WWAN 驱动 | 内核模块 |
-| 21 | kmod-usb-wdm | USB WDM 驱动 | 内核模块 |
+| 1 | kmod-usb-common | USB 公共模块 | 内核模块 |
+| 2 | kmod-usb-core | USB 核心模块 | 内核模块 |
+| 3 | kmod-usb-gadget | USB Gadget 框架 | 内核模块 |
+| 4 | kmod-usb-gadget-eth | USB Gadget 以太网 | 内核模块 |
+| 5 | kmod-usb-gadget-functionfs | USB Gadget FunctionFS | 内核模块 |
+| 6 | kmod-usb-gadget-mass-storage | USB Gadget 大容量存储 | 内核模块 |
+| 7 | kmod-usb-gadget-ncm | USB Gadget NCM 网络 | 内核模块 |
+| 8 | kmod-usb-gadget-serial | USB Gadget 串口 | 内核模块 |
+| 9 | kmod-usb-lib-composite | USB 复合设备库 | 内核模块 |
+| 10 | kmod-usb-net | USB 网络驱动 | 内核模块 |
+| 11 | kmod-usb-net-cdc-ether | USB CDC Ethernet 驱动 | 内核模块 |
+| 12 | kmod-usb-net-cdc-ncm | USB CDC NCM 驱动 | 内核模块 |
+| 13 | kmod-usb-net-huawei-cdc-ncm | 华为 CDC NCM 驱动 | 内核模块 |
+| 14 | kmod-usb-net-rndis | USB RNDIS 网络驱动 | 内核模块 |
+| 15 | kmod-usb-serial | USB 串口驱动 | 内核模块 |
+| 16 | kmod-usb-serial-option | USB 串口 Option 驱动 | 内核模块 |
+| 17 | kmod-usb-serial-wwan | USB 串口 WWAN 驱动 | 内核模块 |
+| 18 | kmod-usb-wdm | USB WDM 驱动 | 内核模块 |
 ### 已添加第三方源码插件库。
 
 | 序号 | 地址 | 说明 | 使用方法 |
 |-----|-----|------|------|
 | 1 | https://github.com/kenzok8/small-package | 常用OpenWrt软件包源码合集 | 在编译时填写插件名 |
+| 2 | https://github.com/linkease/istore | iStore 应用商店（包名 luci-app-store） | 在编译时填写插件名 |
 ---
 
 ### 推荐好用的工具。
