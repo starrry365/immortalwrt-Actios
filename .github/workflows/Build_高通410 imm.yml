@@ -333,8 +333,8 @@ jobs:
         rm -rf packages
         PROFILE=${{ github.event.inputs.profile }}
         mkdir -p flash_package
-        BOOT_IMG=$(ls boot.img.gz 2>/dev/null || ls *boot.img 2>/dev/null | head -1)
-        SYSTEM_IMG=$(ls system.img.gz 2>/dev/null || ls *system.img 2>/dev/null | head -1)
+        BOOT_IMG=$(ls *boot.img* 2>/dev/null | head -1)
+        SYSTEM_IMG=$(ls *system.img* 2>/dev/null | head -1)
         if [ -z "$BOOT_IMG" ] || [ -z "$SYSTEM_IMG" ]; then
           echo "::error::固件文件未找到，编译可能失败！当前目录文件："
           ls -la
