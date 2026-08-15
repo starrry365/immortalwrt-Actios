@@ -928,8 +928,9 @@
         if (mcIpElement) mcIpElement.textContent = host;
         if (mcWebElement) mcWebElement.textContent = '8080';
 
-        // ── 远程 content.json 地址 ──
-        const REMOTE_URL = 'https://cdn.jsdelivr.net/gh/x7780/suishen-wifi@main/content.json';
+        // ── 远程 content.json 地址（可选更新源；本地 content.json 始终优先）──
+        // 指向本仓库自己的内容，避免依赖外部仓库导致页面无法加载
+        const REMOTE_URL = 'https://cdn.jsdelivr.net/gh/starrry365/immortalwrt-Actios@main/files/www/content.json';
 
         // ── 渲染函数 ──
         function render(data) {
@@ -995,8 +996,17 @@
             }
         }
 
-        // ── 加载逻辑：远程优先 → 本地 content.json ──
+        // ── 加载逻辑：本地 content.json 优先（秒开、离线可用）→ 远程异步更新 ──
         async function loadContent() {
+            // 1. 先渲染本地内置内容，保证页面立即可用（无网络也能打开）
+            try {
+                const localRes = await fetch('./content.json');
+                const localData = await localRes.json();
+                render(localData);
+            } catch {
+                // 本地缺失时直接尝试远程
+            }
+            // 2. 后台尝试远程更新（失败静默，不影响已渲染的本地内容）
             try {
                 const res = await Promise.race([
                     fetch(REMOTE_URL + '?t=' + Date.now()),
@@ -1005,9 +1015,7 @@
                 const data = await res.json();
                 render(data);
             } catch {
-                const res = await fetch('./content.json');
-                const data = await res.json();
-                render(data);
+                // 远程不可用时保持本地内容
             }
         }
 

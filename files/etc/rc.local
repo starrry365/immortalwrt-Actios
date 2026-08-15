@@ -21,8 +21,9 @@ else
 fi
 
 # conntrack 连接跟踪表调优 (高通410 随身WiFi 蜂窝网络大量并发连接)
-# sysctl.d 中的 max 参数依赖模块加载, 此处兜底确保生效
-modprobe nf_conntrack 2>/dev/null
+# hashsize 已由 /etc/modules.d/50-nf-conntrack 在 init 阶段传入
+# 此处兜底确保模块已加载、max 参数生效
+modprobe nf_conntrack hashsize=16384 2>/dev/null || modprobe nf_conntrack 2>/dev/null
 sysctl -w net.netfilter.nf_conntrack_max=65536 >/dev/null 2>&1
 
 exit 0

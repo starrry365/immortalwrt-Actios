@@ -160,7 +160,7 @@ jobs:
         if: steps.check.outputs.need_verify == 'true'
         run: |
           cd openwrt
-          make download -j4 V=s
+          make download -j$(nproc) V=s
           find dl -size -1024c -exec rm -f {} \;
 
       - name: 验证编译 (Verify build)
@@ -172,8 +172,14 @@ jobs:
           make tools/install toolchain/install -j$(nproc)
           make package/feeds/packages/glib2/compile -j$(nproc)
           make package/feeds/packages/libmbim/compile -j$(nproc)
-          make -j$(nproc) || make -j1 V=s
-          echo "status=success" >> $GITHUB_OUTPUT
+          # 关键：只有编译真正成功才写入 status=success，防止坏 hash 被锁定
+          if make -j$(nproc); then
+            echo "status=success" >> $GITHUB_OUTPUT
+          elif make -j1 V=s; then
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "status=failed" >> $GITHUB_OUTPUT
+          fi
 
       - name: 更新锁定 hash (Update locked hash on success)
         if: steps.check.outputs.need_verify == 'true' && steps.build.outputs.status == 'success'

@@ -63,17 +63,18 @@
 | `upstream_history.txt` | 上游源码的更新hash历史记录，如果编译不了可以使用历史hash |
 | `upstream_lock.txt` | 定时更新记录上流可编译hash，避免上流乱改源码后导致编译失败 |
 | `极简的包名.txt` | 常用插件包名速查列表备份，没什么大用，备份参考用 |
-| `.config` | 默认编译配置文件，定义全局编译选项 |
 
 ---
 
-### 已启用的默认插件（共3个）不要把这3个插件添加编辑固件里面。
+### 已启用的默认插件（请勿重复添加）
 
 | 序号 | 插件 | 说明 | 菜单位置 |
 |-----|-----|------|---------|
-| 1 | luci-theme-argon  | argon主题插件 | 国内比较火的主题 |
-| 2 | luci-app-package-manager | 软件包管理 | 系统 → 软件包 |
-| 3 | luci-app-firewallr | 防火墙插件 | 系统 → 防火墙 |
+| 1 | luci-theme-argon  | argon主题插件（v2.4.6 正式版） | 系统 → 主题 |
+| 2 | luci-app-argon-config | 主题配置面板（暗色模式/壁纸/自定义颜色） | 系统 → 主题风格 |
+| 3 | luci-app-firewall | 防火墙配置（firewall4/nftables 前端） | 网络 → 防火墙 |
+| 4 | luci-app-package-manager | 软件包管理 | 系统 → 软件包 |
+| 5 | luci-app-upnp | UPnP 端口自动转发（游戏/下载提速） | 网络 → UPnP |
 ### 已启用的默认驱动模块，请不要重复添加。
 
 | 序号 | 插件 | 说明 | 菜单位置 |

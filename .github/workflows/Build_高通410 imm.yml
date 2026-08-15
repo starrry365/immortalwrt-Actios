@@ -97,6 +97,14 @@ jobs:
         # 卸载 OpenWrt 编译不需要的桌面/云工具
         sudo apt-get remove -y --purge snapd google-chrome-stable firefox microsoft-edge-stable powershell 2>/dev/null || true
         sudo apt-get autoremove -y --purge 2>/dev/null || true
+        # 清理 JVM / Go / Rust 等编译无关的工具链（OpenWrt 用自带的 toolchain）
+        sudo rm -rf \
+          /usr/lib/jvm \
+          /usr/local/go \
+          /usr/local/.ghcup \
+          /root/.cargo \
+          /usr/local/lib/node_modules \
+          2>/dev/null || true
         # 重置 4G swap（保证大编译时内存吃紧时不爆）
         sudo swapoff -a 2>/dev/null || true
         sudo rm -f /swapfile 2>/dev/null
@@ -169,6 +177,15 @@ jobs:
           cd openwrt && git checkout ${{ steps.lock.outputs.locked_hash }}
         fi
         ln -sf /mnt/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: 💾 恢复 dl 下载缓存（同 hash 重复编译可跳过下载）
+      uses: actions/cache@v4
+      with:
+        path: openwrt/dl
+        key: dl-${{ steps.lock.outputs.locked_hash }}-${{ hashFiles('diy-part1.sh', 'diy-part2.sh', 'feeds.conf.default', 'config/mf32.config') }}
+        restore-keys: |
+          dl-${{ steps.lock.outputs.locked_hash }}-
+          dl-
 
     - name: 📁 复制自定义文件（files 目录）
       run: cp -r files openwrt/files
@@ -255,7 +272,7 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make download -j4 V=s
+        make download -j$(nproc) V=s
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 

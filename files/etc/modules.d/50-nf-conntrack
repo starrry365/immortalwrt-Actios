@@ -1,0 +1,4 @@
+# nf_conntrack 哈希表大小（蜂窝网络大量并发连接场景）
+# hashsize=16384 → nf_conntrack_max 默认 = hashsize*4 = 65536，与 sysctl.d 配置一致
+# 模块加载参数必须在 init 阶段通过 modules.d 传入（sysctl 无法调整 hashsize）
+nf_conntrack hashsize=16384

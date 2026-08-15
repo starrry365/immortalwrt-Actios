@@ -33,18 +33,3 @@ git clone --depth 1 -b v2.4.6 https://github.com/jerrykuku/luci-theme-argon.git 
 # 添加 argon 主题配置面板（网页端自定义主题颜色/暗色模式/壁纸等）
 # 官方 luci feed 不含此应用，clone 到 package/ 不会冲突；锁定正式版 v0.9
 git clone --depth 1 -b v0.9 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
-
-# 启用 IPv4 策略路由（直接写入内核 platform config，绕过 make defconfig 的依赖检查）
-# CONFIG_KERNEL_IP_ADVANCED_ROUTER 在 OpenWrt Config.in 中无对应 wrapper，必须用此方式
-#for cfg in target/linux/msm89xx/config-*; do
-#  grep -q 'CONFIG_IP_ADVANCED_ROUTER' "$cfg" || echo 'CONFIG_IP_ADVANCED_ROUTER=y' >> "$cfg"
-#  grep -q 'CONFIG_IP_MULTIPLE_TABLES' "$cfg" || echo 'CONFIG_IP_MULTIPLE_TABLES=y' >> "$cfg"
-#done
-
-
-# 临时添加的插件
-# git clone https://github.com/lkiuyu/luci-app-cpu-perf package/luci-app-cpu-perf
-# git clone https://github.com/lkiuyu/luci-app-cpu-status package/luci-app-cpu-status
-# git clone https://github.com/gSpotx2f/luci-app-cpu-status-mini package/luci-app-cpu-status-mini
-# git clone https://github.com/lkiuyu/luci-app-temp-status package/luci-app-temp-status
-# git clone https://github.com/lkiuyu/DbusSmsForwardCPlus package/DbusSmsForwardCPlus
